@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HYMSDTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="T_BusLine">
+    <Key>
+      <PropertyRef Name="BL_Guid" />
+    </Key>
+    <Property Name="BL_Guid" Type="Guid" Nullable="false" />
+    <Property Name="BL_Id" Type="Int32" />
+    <Property Name="BL_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BL_ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BL_UpStartStationId" Type="Int32" />
+    <Property Name="BL_UpEndStationId" Type="Int32" />
+    <Property Name="BL_DownStartStationId" Type="Int32" />
+    <Property Name="BL_DownEndStationId" Type="Int32" />
+    <Property Name="BL_UpStartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BL_UpEndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BL_DownStartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BL_DownEndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BL_LineType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BL_Geo" Type="Geometry" />
+  </EntityType>
+  <EntityType Name="T_BusLine_Station">
+    <Key>
+      <PropertyRef Name="BL_S_Guid" />
+    </Key>
+    <Property Name="BL_S_Guid" Type="Guid" Nullable="false" />
+    <Property Name="BL_Id" Type="Int32" />
+    <Property Name="Sta_Id" Type="Int32" />
+    <Property Name="BL_S_LineStationIndex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Culture">
+    <Key>
+      <PropertyRef Name="C_Guid" />
+    </Key>
+    <Property Name="C_Guid" Type="Guid" Nullable="false" />
+    <Property Name="C_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_EduId1" Type="Guid" />
+    <Property Name="C_EduId2" Type="Guid" />
+    <Property Name="C_EduType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="C_QH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_Geo" Type="Geometry" />
+    <Property Name="C_Introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="C_PhotoList" Type="Int32" />
+  </EntityType>
+  <EntityType Name="T_Culture_Community">
+    <Key>
+      <PropertyRef Name="C_C_Guid" />
+    </Key>
+    <Property Name="C_C_Guid" Type="Guid" Nullable="false" />
+    <Property Name="C_C_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_C_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_C_QH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="C_C_Geo" Type="Geometry" />
+    <Property Name="C_EduId1" Type="Guid" />
+    <Property Name="C_EduId2" Type="Guid" />
+  </EntityType>
+  <EntityType Name="T_Health">
+    <Key>
+      <PropertyRef Name="H_Guid" />
+    </Key>
+    <Property Name="H_Guid" Type="Guid" Nullable="false" />
+    <Property Name="H_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="H_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="H_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="H_QH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="H_Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="H_Geo" Type="Geometry" />
+    <Property Name="H_Introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="H_PhotoList" Type="Int32" />
+  </EntityType>
+  <EntityType Name="T_LeisureTourism">
+    <Key>
+      <PropertyRef Name="LT_Guid" />
+    </Key>
+    <Property Name="LT_Guid" Type="Guid" Nullable="false" />
+    <Property Name="LT_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LT_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LT_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LT_QH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LT_Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LT_Time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LT_Geo" Type="Geometry" />
+    <Property Name="LT_Introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LT_PhotoList" Type="Int32" />
+  </EntityType>
+  <EntityType Name="T_Service">
+    <Key>
+      <PropertyRef Name="S_Guid" />
+    </Key>
+    <Property Name="S_Guid" Type="Guid" Nullable="false" />
+    <Property Name="S_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="S_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="S_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="S_QH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="S_Cost" Type="Double" />
+    <Property Name="S_Star" Type="Double" />
+    <Property Name="S_Geo" Type="Geometry" />
+    <Property Name="S_Introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="S_PhotoList" Type="Int32" />
+  </EntityType>
+  <EntityType Name="T_Station">
+    <Key>
+      <PropertyRef Name="Sta_Guid" />
+    </Key>
+    <Property Name="Sta_Guid" Type="Guid" Nullable="false" />
+    <Property Name="Sta_Id" Type="Int32" />
+    <Property Name="Sta_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Sta_Geo" Type="Geometry" />
+  </EntityType>
+  <EntityType Name="T_Traffic">
+    <Key>
+      <PropertyRef Name="T_Guid" />
+    </Key>
+    <Property Name="T_Guid" Type="Guid" Nullable="false" />
+    <Property Name="T_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="T_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="T_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="T_QH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="T_Number" Type="Int32" />
+    <Property Name="T_Geo" Type="Geometry" />
+    <Property Name="T_Introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="T_PhotoList" Type="Int32" />
+  </EntityType>
+  <EntityType Name="T_User">
+    <Key>
+      <PropertyRef Name="U_Guid" />
+    </Key>
+    <Property Name="U_Guid" Type="Guid" Nullable="false" />
+    <Property Name="U_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="U_Acc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="U_Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="海盐">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="geom" Type="Geometry" />
+  </EntityType>
+  <EntityContainer Name="HYMSDTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="T_BusLine" EntityType="Self.T_BusLine" />
+    <EntitySet Name="T_BusLine_Station" EntityType="Self.T_BusLine_Station" />
+    <EntitySet Name="T_Culture" EntityType="Self.T_Culture" />
+    <EntitySet Name="T_Culture_Community" EntityType="Self.T_Culture_Community" />
+    <EntitySet Name="T_Health" EntityType="Self.T_Health" />
+    <EntitySet Name="T_LeisureTourism" EntityType="Self.T_LeisureTourism" />
+    <EntitySet Name="T_Service" EntityType="Self.T_Service" />
+    <EntitySet Name="T_Station" EntityType="Self.T_Station" />
+    <EntitySet Name="T_Traffic" EntityType="Self.T_Traffic" />
+    <EntitySet Name="T_User" EntityType="Self.T_User" />
+    <EntitySet Name="海盐" EntityType="Self.海盐" />
+  </EntityContainer>
+</Schema>

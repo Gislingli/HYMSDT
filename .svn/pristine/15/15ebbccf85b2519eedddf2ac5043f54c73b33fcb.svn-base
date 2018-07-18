@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+    if (!HttpContext.Current.IsDebuggingEnabled)
+    {
+
+
+        Bundles.Reference("/Components/Home", "page");
+
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Scripts.Render("~/Leaflet")
+    @Scripts.Render("~/Core")
+    @Scripts.Render("~/AntdJS")
+    @Styles.Render("~/AntdCSS")
+    @Styles.Render("~/Icon")
+
+</head>
+<body>
+    <div id="content" style="width:100%;height:100%;"></div>
+
+
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+
+        @Scripts.Render("~/Home/js")
+        @Styles.Render("~/Home/css")
+
+    }
+    else
+    {
+        @Bundles.RenderStylesheets("page")
+        @Bundles.RenderScripts("page")
+    }
+</body>
+</html>

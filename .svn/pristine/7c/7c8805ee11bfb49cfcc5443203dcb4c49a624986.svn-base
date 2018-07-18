@@ -1,0 +1,80 @@
+﻿class Map extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    initMap() {
+         //天地图加载
+
+        var map = L.map('map', {
+            attributionControl: false,
+            crs: L.CRS.EPSG4490,
+            center: [30.5265465872, 120.9462728251],
+            zoomControl: false,
+            maxZoom: 18,
+            minZoom:13,
+            zoom: 13,
+        });
+       
+        this.map = map;
+        this.Layers = L.layerGroup().addTo(this.map);
+        this.Layers.addLayer(this.ReturnMapType('vector'));
+        this.$mapDom = $('#map');
+        this.addScale();
+    }
+
+    ReturnMapType = (type) => {
+        var vec = L.tileLayer.TDTJX({ type: 'vec' }),
+            vec_anno = L.tileLayer.TDTJX({ type: 'vec_anno' }),
+            img = L.tileLayer.TDTJX({ type: 'img' }),
+            img_anno = L.tileLayer.TDTJX({ type: 'img_anno' });
+
+        var baseLayers = {
+            vec: L.layerGroup([vec]),
+            vec_anno: L.layerGroup([vec, vec_anno]),
+            img: L.layerGroup([img]),
+            img_anno: L.layerGroup([img, img_anno])
+        };
+        if (type == 'vector') return baseLayers.vec_anno;
+        if (type == 'image') return baseLayers.img_anno;
+    }
+
+    componentDidMount() {
+
+        this.initMap();
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        let self = this;
+
+        if (self.props.vectorOrImage != nextProps.vectorOrImage) {
+
+            if (nextProps.vectorOrImage) {
+                self.Layers.clearLayers();
+                self.Layers.addLayer(self.ReturnMapType('vector'));
+            }
+            if (!nextProps.vectorOrImage) {
+                self.Layers.clearLayers();
+                self.Layers.addLayer(self.ReturnMapType('image'));
+            }
+        }
+
+    }
+    addScale() {
+        this.scale = L.control.scale(
+            {
+                position: 'bottomleft',
+                imperial: false
+            }).addTo(this.map);
+    }
+
+    render() {
+        return (
+            <div id="map" >
+
+            </div>
+        );
+    }
+}
+

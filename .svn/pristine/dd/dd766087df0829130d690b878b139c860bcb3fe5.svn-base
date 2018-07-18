@@ -1,0 +1,46 @@
+﻿
+
+@{
+    Layout = null;
+    if (!HttpContext.Current.IsDebuggingEnabled)
+    {
+        Bundles.Reference("/Components/Mobile_Home", "page");
+    }
+}
+
+<!DOCTYPE html>
+
+<html >
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Scripts.Render("~/Leaflet")
+    @Scripts.Render("~/Core")
+    @Styles.Render("~/Icon")
+    @Scripts.Render("~/AntdMobileJS")
+    @Styles.Render("~/AntdMobileCSS")
+    @*@Scripts.Render("~/AntdJS")
+    @Styles.Render("~/AntdCSS")*@
+    <script>
+        antdMobile = window['antd-mobile'];
+    </script>
+
+</head>
+<body >
+    <div id="content"></div>
+
+
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        @Scripts.Render("~/Mobile_Home/js")
+        @Styles.Render("~/Mobile_Home/css")
+
+    }
+    else
+    {
+        @Bundles.RenderStylesheets("page")
+        @Bundles.RenderScripts("page")
+    }
+</body>
+</html>
+

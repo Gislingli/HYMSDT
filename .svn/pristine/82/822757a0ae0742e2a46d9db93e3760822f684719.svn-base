@@ -1,0 +1,11 @@
+﻿.BottomBar {
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.15);
+    position: absolute;
+    bottom: 0px;
+    border-radius: 2px;
+    background-color:white;
+    z-index: 997;
+    width: 100%;
+    height: 43px;
+}

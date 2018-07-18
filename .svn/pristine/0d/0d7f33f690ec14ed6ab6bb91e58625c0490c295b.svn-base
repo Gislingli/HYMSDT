@@ -1,0 +1,340 @@
+﻿function __leafletExtends__() {
+    if (window.L) {
+        /*
+                扩展circle
+                添加toGeoJSON2方法
+                将circle简化为polygon
+            */
+
+        //转化为弧度制
+        if (Number.prototype.toRadians === undefined) {
+            Number.prototype.toRadians = function () {
+                return this * Math.PI / 180;
+            };
+        }
+        //转化为角度制
+        if (Number.prototype.toDegrees === undefined) {
+            Number.prototype.toDegrees = function () {
+                return this * 180 / Math.PI;
+            };
+        }
+
+        L.extend(L.CRS.Earth, {
+            destinationPoint: function (pntStart, distance, bearing, radius) {
+                radius = radius === undefined ? this.R : Number(radius);
+
+                var δ = Number(distance) / radius;
+                var θ = Number(bearing).toRadians();
+
+                var φ1 = pntStart.lat.toRadians();
+                var λ1 = pntStart.lng.toRadians();
+
+                var sinφ1 = Math.sin(φ1),
+                    cosφ1 = Math.cos(φ1);
+                var sinδ = Math.sin(δ),
+                    cosδ = Math.cos(δ);
+                var sinθ = Math.sin(θ),
+                    cosθ = Math.cos(θ);
+
+                var sinφ2 = sinφ1 * cosδ + cosφ1 * sinδ * cosθ;
+                var φ2 = Math.asin(sinφ2);
+                var y = sinθ * sinδ * cosφ1;
+                var x = cosδ - sinφ1 * sinφ2;
+                var λ2 = λ1 + Math.atan2(y, x);
+
+                return L.latLng(φ2.toDegrees(), (λ2.toDegrees() + 540) % 360 - 180);
+            },
+        });
+
+        L.Circle.include({
+            toGeoJSON2: function (multi) {
+                var pointCount = (multi || 1) * 36;
+
+                var radius = this.options.radius;
+                var center = this._latlng;
+
+                var latlng = [];
+
+                var bearing = 360 / pointCount;
+                for (var i = 0; i <= 360; i += bearing) {
+                    var p = L.CRS.Earth.destinationPoint(center, radius, i);
+                    latlng.push([p.lng, p.lat]);
+                }
+
+                return L.GeoJSON.getFeature(this, {
+                    type: 'Polygon',
+                    coordinates: [latlng],
+                });
+            },
+        });
+
+        var tdtUrls = {
+            c: {
+                img:
+                'http://t0.tianditu.com/img_c/wmts?LAYER=img&tileMatrixSet=c&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+                img_anno:
+                'http://t0.tianditu.com/cia_c/wmts?LAYER=cia&tileMatrixSet=c&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+                vec:
+                'http://t0.tianditu.com/vec_c/wmts?LAYER=vec&tileMatrixSet=c&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+                vec_anno:
+                'http://t0.tianditu.com/cva_c/wmts?LAYER=cva&tileMatrixSet=c&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+            },
+            w: {
+                img:
+                'http://t0.tianditu.com/img_w/wmts?LAYER=img&tileMatrixSet=w&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+                img_anno:
+                'http://t0.tianditu.com/cia_w/wmts?LAYER=cia&tileMatrixSet=w&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+                vec:
+                'http://t0.tianditu.com/vec_w/wmts?LAYER=vec&tileMatrixSet=w&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+                vec_anno:
+                'http://t0.tianditu.com/cva_w/wmts?LAYER=cva&tileMatrixSet=w&service=wmts&request=GetTile&version=1.0.0&TileMatrix={z}&TileRow={y}&TileCol={x}&style=default&format=tiles',
+            },
+        };
+        /*
+                天地图扩展
+                使用:
+                c:cgcs2000
+                var vec = L.tileLayer.TDT('c','vec',{opacity:0.5});
+                var vec_anno = L.tileLayer.TDT('c','vec_anno',{opacity:0.5});
+                map = L.map('map', {
+                    crs: L.CRS.EPSG4490,
+                    center: [30.75, 120.75],
+                    zoom: 19
+                })
+    
+                w:web墨卡托
+                var vec = L.tileLayer.TDT('w','vec',{opacity:0.5});
+                var vec_anno = L.tileLayer.TDT('w','vec_anno',{opacity:0.5});
+                map = L.map('map', {
+                    center: [30.75, 120.75],
+                    zoom: 19
+                })
+            */
+        L.tileLayer.TDT = function (t0, t1, options) {
+            return L.tileLayer(tdtUrls[t0][t1], options);
+        };
+
+        /*
+            嘉兴天地图扩展
+            使用：
+                var vec = L.tileLayer.TDTJX({type: 'vec'});
+                var vec_anno = L.tileLayer.TDTJX({type: 'vec_anno'});
+                map = L.map('map', {
+                    crs: L.CRS.EPSG4490,
+                    center: [30.75, 120.75],
+                    zoom: 19
+                })
+                map.addLayer(vec);
+                map.addLayer(vec_anno);
+            */
+        L.TileLayer.TDTJX = L.TileLayer.extend({
+            urls: {
+                vec: {
+                    g: {
+                        url: 'http://t0.tianditu.com/vec_c/wmts',
+                        options: {
+                            layer: 'vec',
+                            tilematrixSet: 'c',
+                            format: 'tile',
+                        },
+                    },
+                    s: {
+                        url: 'http://srv.zjditu.cn/ZJEMAP_2D/wmts',
+                        options: {
+                            layer: 'ZJEMAP_2D',
+                            tilematrixSet: 'esritilematirx',
+                            format: 'image/png',
+                        },
+                    },
+                    d: {
+                        url: 'http://220.191.220.90/JXEMAP/service/wmts',
+                        options: {
+                            layer: 'JXEMAP',
+                            tilematrixSet: 'TileMatrixSet0',
+                            format: 'image/png',
+                        },
+                    },
+                },
+                vec_anno: {
+                    g: {
+                        url: 'http://t0.tianditu.com/cva_c/wmts',
+                        options: {
+                            layer: 'cva',
+                            tilematrixSet: 'c',
+                            format: 'tile',
+                        },
+                    },
+                    s: {
+                        url: 'http://srv.zjditu.cn/ZJEMAPANNO_2D/wmts',
+                        options: {
+                            layer: 'ZJEMAPANNO_2D',
+                            tilematrixSet: 'esritilematirx',
+                            format: 'image/png',
+                        },
+                    },
+                    d: {
+                        url: 'http://220.191.220.90/JXEMAPANNO/service/wmts',
+                        options: {
+                            layer: 'JXEMAPANNO',
+                            tilematrixSet: 'TileMatrixSet0',
+                            format: 'image/png',
+                        },
+                    },
+                },
+                img: {
+                    g: {
+                        url: 'http://t0.tianditu.com/img_c/wmts',
+                        options: {
+                            layer: 'img',
+                            tilematrixSet: 'c',
+                            format: 'tile',
+                        },
+                    },
+                    s: {
+                        url: 'http://srv.zjditu.cn/ZJDOM_2D/wmts',
+                        options: {
+                            layer: 'ZJDOM_2D',
+                            tilematrixSet: 'esritilematirx',
+                            format: 'image/jpeg',
+                        },
+                    },
+                    d: {
+                        url: 'http://220.191.220.90/JXIMG/service/wmts',
+                        options: {
+                            layer: 'JXIMG',
+                            tilematrixSet: 'TileMatrixSet0',
+                            format: 'image/png',
+                        },
+                    },
+                },
+                img_anno: {
+                    g: {
+                        url: 'http://t0.tianditu.com/cia_c/wmts',
+                        options: {
+                            layer: 'cia',
+                            tilematrixSet: 'c',
+                            format: 'tile',
+                        },
+                    },
+                    s: {
+                        url: 'http://srv.zjditu.cn/ZJDOMANNO_2D/wmts',
+                        options: {
+                            layer: 'ZJDOMANNO_2D',
+                            tilematrixSet: 'esritilematirx',
+                            format: 'image/png',
+                        },
+                    },
+                    d: {
+                        url: 'http://220.191.220.90/JXIMGANNO/service/wmts',
+                        options: {
+                            layer: 'JXIMGANNO',
+                            tilematrixSet: 'TileMatrixSet0',
+                            format: 'image/png',
+                        },
+                    },
+                },
+            },
+            initialize: function (options) {
+                this.type = options.type;
+                L.extend(this.options, options);
+                this.options.maxZoom = 20;
+                this.options.minZoom = 0;
+                var titleSize = 256;
+                var baseOption = {
+                    width: titleSize,
+                    height: titleSize,
+                    service: 'WMTS',
+                    request: 'GetTile',
+                    version: '1.0.0',
+                    tileSize: 256,
+                    style: 'default',
+                    errorTileUrl: 'http://10.73.1.48/geosoc/Content/img/error.png',
+                };
+                for (var n in this.urls) {
+                    var urlCfg = this.urls[n];
+                    for (var m in urlCfg) {
+                        urlCfg[m].options = L.extend(urlCfg[m].options, baseOption);
+                    }
+                }
+            },
+            onAdd: function (map) {
+                L.TileLayer.prototype.onAdd.call(this, map);
+            },
+            getTileUrl: function (tilePoint) {
+                var urlOption = this.getUrlOption(this.type, tilePoint.z);
+                var url = urlOption.url;
+                url = L.Util.template(url, {
+                    s: this._getSubdomain(tilePoint),
+                });
+                return (
+                    url +
+                    L.Util.getParamString(urlOption.options, url) +
+                    '&tilematrix=' +
+                    tilePoint.z +
+                    '&tilerow=' +
+                    tilePoint.y +
+                    '&tilecol=' +
+                    tilePoint.x
+                );
+            },
+            getUrlOption: function (type, zoom) {
+                return this._getUrlOptionsByZoom(this.urls[type], zoom);
+            },
+            _getUrlOptionsByZoom: function (opt, zoom) {
+                //0-13级使用国家服务
+                if (zoom < 14) return opt.g;
+                else if (zoom < 18)
+                    //14-17级使用省厅服务
+                    return opt.s;
+                else
+                    //18-20级使用地市级
+                    return opt.d;
+            },
+        });
+        /*
+                options:{
+                    type:'vec'['vec_anno','img','img_anno']
+                }
+            */
+        L.tileLayer.TDTJX = function (options) {
+            return new L.TileLayer.TDTJX(options);
+        };
+
+        L.CRS.EPSG4490 = L.extend({}, L.CRS.EPSG4326, {
+            code: 'EPSG:4490',
+            transformation: new L.Transformation(1 / 360, 0.5, -1 / 360, 0.25),
+        });
+
+        L.TileLayer.WMTS = L.TileLayer.extend({
+            options: {
+                service: 'WMTS',
+                request: 'GetTile',
+                version: '1.0.0',
+                style: 'default',
+                format: 'image/png',
+            },
+            initialize: function (url, options) {
+                this.url = url;
+                L.extend(this.options, options);
+            },
+            getTileUrl: function (tilePoint) {
+                return (
+                    this.url +
+                    L.Util.getParamString(this.options) +
+                    '&tilematrix=' +
+                    tilePoint.z +
+                    '&tilerow=' +
+                    tilePoint.y +
+                    '&tilecol=' +
+                    tilePoint.x
+                );
+            },
+        });
+
+        L.tileLayer.WMTS = function (options) {
+            return new L.TileLayer.WMTS(options);
+        };
+
+    }
+}
+__leafletExtends__();

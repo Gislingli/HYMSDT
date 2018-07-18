@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Error</h1>
+
+
+    <script src="~/Refers/jquery.min.js"></script>
+    <script>
+        function GetRandom(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        var lng = GetRandom(120, 121);
+        var lat = GetRandom(30, 31);
+        var geom = lng.toString() + " " + lat.toString();
+        var param = { Sta_Id: 1, Sta_Geo: geom, Sta_Name: "wyzlzxx" };
+        //$.post("/Data/AddBusSta", { STA: param}, function (e) {
+        //    if (e) {
+        //        console.log(geom);
+        //    }
+        //})
+
+        //$.post('/Data/GetLeisureTourismByName', { Name: '', Type: '', Pageindex: 0, Listnum: 5 }, function (e) {
+        //    if (e) {
+        //        console.log(e)
+        //    }
+        //})
+    </script>
+</body>
+</html>

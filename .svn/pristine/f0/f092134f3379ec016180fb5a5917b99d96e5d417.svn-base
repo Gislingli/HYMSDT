@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HYMSDTModelStoreContainer" CdmEntityContainer="HYMSDTEntities">
+    <EntitySetMapping Name="T_BusLine">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_BusLine">
+        <MappingFragment StoreEntitySet="T_BusLine">
+          <ScalarProperty Name="BL_Guid" ColumnName="BL_Guid" />
+          <ScalarProperty Name="BL_Id" ColumnName="BL_Id" />
+          <ScalarProperty Name="BL_Name" ColumnName="BL_Name" />
+          <ScalarProperty Name="BL_ShortName" ColumnName="BL_ShortName" />
+          <ScalarProperty Name="BL_UpStartStationId" ColumnName="BL_UpStartStationId" />
+          <ScalarProperty Name="BL_UpEndStationId" ColumnName="BL_UpEndStationId" />
+          <ScalarProperty Name="BL_DownStartStationId" ColumnName="BL_DownStartStationId" />
+          <ScalarProperty Name="BL_DownEndStationId" ColumnName="BL_DownEndStationId" />
+          <ScalarProperty Name="BL_UpStartTime" ColumnName="BL_UpStartTime" />
+          <ScalarProperty Name="BL_UpEndTime" ColumnName="BL_UpEndTime" />
+          <ScalarProperty Name="BL_DownStartTime" ColumnName="BL_DownStartTime" />
+          <ScalarProperty Name="BL_DownEndTime" ColumnName="BL_DownEndTime" />
+          <ScalarProperty Name="BL_LineType" ColumnName="BL_LineType" />
+          <ScalarProperty Name="BL_Geo" ColumnName="BL_Geo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_BusLine_Station">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_BusLine_Station">
+        <MappingFragment StoreEntitySet="T_BusLine_Station">
+          <ScalarProperty Name="BL_S_Guid" ColumnName="BL_S_Guid" />
+          <ScalarProperty Name="BL_Id" ColumnName="BL_Id" />
+          <ScalarProperty Name="Sta_Id" ColumnName="Sta_Id" />
+          <ScalarProperty Name="BL_S_LineStationIndex" ColumnName="BL_S_LineStationIndex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Culture">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_Culture">
+        <MappingFragment StoreEntitySet="T_Culture">
+          <ScalarProperty Name="C_Guid" ColumnName="C_Guid" />
+          <ScalarProperty Name="C_Type" ColumnName="C_Type" />
+          <ScalarProperty Name="C_EduId1" ColumnName="C_EduId1" />
+          <ScalarProperty Name="C_EduId2" ColumnName="C_EduId2" />
+          <ScalarProperty Name="C_EduType" ColumnName="C_EduType" />
+          <ScalarProperty Name="C_Name" ColumnName="C_Name" />
+          <ScalarProperty Name="C_Address" ColumnName="C_Address" />
+          <ScalarProperty Name="C_QH" ColumnName="C_QH" />
+          <ScalarProperty Name="C_Geo" ColumnName="C_Geo" />
+          <ScalarProperty Name="C_Introduce" ColumnName="C_Introduce" />
+          <ScalarProperty Name="C_PhotoList" ColumnName="C_PhotoList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Culture_Community">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_Culture_Community">
+        <MappingFragment StoreEntitySet="T_Culture_Community">
+          <ScalarProperty Name="C_C_Guid" ColumnName="C_C_Guid" />
+          <ScalarProperty Name="C_C_Name" ColumnName="C_C_Name" />
+          <ScalarProperty Name="C_C_Address" ColumnName="C_C_Address" />
+          <ScalarProperty Name="C_C_QH" ColumnName="C_C_QH" />
+          <ScalarProperty Name="C_C_Geo" ColumnName="C_C_Geo" />
+          <ScalarProperty Name="C_EduId1" ColumnName="C_EduId1" />
+          <ScalarProperty Name="C_EduId2" ColumnName="C_EduId2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Health">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_Health">
+        <MappingFragment StoreEntitySet="T_Health">
+          <ScalarProperty Name="H_Guid" ColumnName="H_Guid" />
+          <ScalarProperty Name="H_Type" ColumnName="H_Type" />
+          <ScalarProperty Name="H_Name" ColumnName="H_Name" />
+          <ScalarProperty Name="H_Address" ColumnName="H_Address" />
+          <ScalarProperty Name="H_QH" ColumnName="H_QH" />
+          <ScalarProperty Name="H_Grade" ColumnName="H_Grade" />
+          <ScalarProperty Name="H_Geo" ColumnName="H_Geo" />
+          <ScalarProperty Name="H_Introduce" ColumnName="H_Introduce" />
+          <ScalarProperty Name="H_PhotoList" ColumnName="H_PhotoList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_LeisureTourism">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_LeisureTourism">
+        <MappingFragment StoreEntitySet="T_LeisureTourism">
+          <ScalarProperty Name="LT_Guid" ColumnName="LT_Guid" />
+          <ScalarProperty Name="LT_Type" ColumnName="LT_Type" />
+          <ScalarProperty Name="LT_Name" ColumnName="LT_Name" />
+          <ScalarProperty Name="LT_Address" ColumnName="LT_Address" />
+          <ScalarProperty Name="LT_QH" ColumnName="LT_QH" />
+          <ScalarProperty Name="LT_Grade" ColumnName="LT_Grade" />
+          <ScalarProperty Name="LT_Time" ColumnName="LT_Time" />
+          <ScalarProperty Name="LT_Geo" ColumnName="LT_Geo" />
+          <ScalarProperty Name="LT_Introduce" ColumnName="LT_Introduce" />
+          <ScalarProperty Name="LT_PhotoList" ColumnName="LT_PhotoList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Service">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_Service">
+        <MappingFragment StoreEntitySet="T_Service">
+          <ScalarProperty Name="S_Guid" ColumnName="S_Guid" />
+          <ScalarProperty Name="S_Type" ColumnName="S_Type" />
+          <ScalarProperty Name="S_Name" ColumnName="S_Name" />
+          <ScalarProperty Name="S_Address" ColumnName="S_Address" />
+          <ScalarProperty Name="S_QH" ColumnName="S_QH" />
+          <ScalarProperty Name="S_Cost" ColumnName="S_Cost" />
+          <ScalarProperty Name="S_Star" ColumnName="S_Star" />
+          <ScalarProperty Name="S_Geo" ColumnName="S_Geo" />
+          <ScalarProperty Name="S_Introduce" ColumnName="S_Introduce" />
+          <ScalarProperty Name="S_PhotoList" ColumnName="S_PhotoList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Station">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_Station">
+        <MappingFragment StoreEntitySet="T_Station">
+          <ScalarProperty Name="Sta_Guid" ColumnName="Sta_Guid" />
+          <ScalarProperty Name="Sta_Id" ColumnName="Sta_Id" />
+          <ScalarProperty Name="Sta_Name" ColumnName="Sta_Name" />
+          <ScalarProperty Name="Sta_Geo" ColumnName="Sta_Geo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Traffic">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_Traffic">
+        <MappingFragment StoreEntitySet="T_Traffic">
+          <ScalarProperty Name="T_Guid" ColumnName="T_Guid" />
+          <ScalarProperty Name="T_Type" ColumnName="T_Type" />
+          <ScalarProperty Name="T_Name" ColumnName="T_Name" />
+          <ScalarProperty Name="T_Address" ColumnName="T_Address" />
+          <ScalarProperty Name="T_QH" ColumnName="T_QH" />
+          <ScalarProperty Name="T_Number" ColumnName="T_Number" />
+          <ScalarProperty Name="T_Geo" ColumnName="T_Geo" />
+          <ScalarProperty Name="T_Introduce" ColumnName="T_Introduce" />
+          <ScalarProperty Name="T_PhotoList" ColumnName="T_PhotoList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_User">
+      <EntityTypeMapping TypeName="HYMSDTModel.T_User">
+        <MappingFragment StoreEntitySet="T_User">
+          <ScalarProperty Name="U_Guid" ColumnName="U_Guid" />
+          <ScalarProperty Name="U_Name" ColumnName="U_Name" />
+          <ScalarProperty Name="U_Acc" ColumnName="U_Acc" />
+          <ScalarProperty Name="U_Pwd" ColumnName="U_Pwd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="海盐">
+      <EntityTypeMapping TypeName="HYMSDTModel.海盐">
+        <MappingFragment StoreEntitySet="海盐">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="geom" ColumnName="geom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
